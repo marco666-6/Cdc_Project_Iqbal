@@ -133,24 +133,24 @@
         <div class="col-lg-8">
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h5 class="mb-0"><i class="bi bi-fire text-danger me-2"></i>Konten Populer</h5>
+                    <h5 class="mb-0"><i class="bi bi-fire text-danger me-2"></i>Konten</h5>
                 </div>
                 <div class="card-body">
                     <!-- Tabs -->
                     <ul class="nav nav-pills mb-4" id="popularTab" role="tablist">
                         <li class="nav-item" role="presentation">
                             <button class="nav-link active" id="popular-jobs-tab" data-bs-toggle="pill" data-bs-target="#popular-jobs" type="button">
-                                <i class="bi bi-briefcase me-2"></i>Lowongan
+                                <i class="bi bi-briefcase me-2"></i><span>Lowongan</span>
                             </button>
                         </li>
                         <li class="nav-item" role="presentation">
                             <button class="nav-link" id="popular-programs-tab" data-bs-toggle="pill" data-bs-target="#popular-programs" type="button">
-                                <i class="bi bi-people me-2"></i>Program Magang
+                                <i class="bi bi-people me-2"></i><span>Program Magang</span>
                             </button>
                         </li>
                         <li class="nav-item" role="presentation">
                             <button class="nav-link" id="popular-news-tab" data-bs-toggle="pill" data-bs-target="#popular-news" type="button">
-                                <i class="bi bi-newspaper me-2"></i>Berita
+                                <i class="bi bi-newspaper me-2"></i><span>Berita</span>
                             </button>
                         </li>
                     </ul>
@@ -420,8 +420,16 @@
 
     .nav-pills .nav-link.active {
         background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-        color: white;
+        color: white !important;
     }
+
+    .nav-pills .nav-link.active,
+    .nav-pills .nav-link.active i,
+    .nav-pills .nav-link.active span,
+    .nav-pills .nav-link.active strong {
+        color: #fff !important;
+    }
+
 
     .activity-timeline {
         max-height: 400px;

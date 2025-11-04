@@ -7,6 +7,9 @@
 
     <title>@yield('title', 'Admin Dashboard') - CDC Polibatam</title>
 
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{{ asset('images/cdcp.png') }}">
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -497,6 +500,15 @@
             color: white;
         }
 
+        .navbar-brand-logo {
+            height: 45px;
+            object-fit: contain;
+            background: lightblue;
+            padding: 5px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
         .btn-primary:hover {
             transform: translateY(-2px);
             box-shadow: var(--shadow-lg);
@@ -628,9 +640,7 @@
     <!-- Sidebar -->
     <nav class="sidebar" id="sidebar">
         <div class="sidebar-header">
-            <div class="logo">
-                <i class="bi bi-briefcase-fill"></i>
-            </div>
+            <img src="{{ asset('images/cdcp.png') }}" alt="CDC Polibatam Logo" class="navbar-brand-logo">
             <div class="brand">CDC Admin</div>
         </div>
         

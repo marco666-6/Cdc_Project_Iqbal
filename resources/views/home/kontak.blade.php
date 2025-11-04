@@ -126,7 +126,7 @@
                 <div class="card shadow-sm border-0 h-100">
                     <div class="card-body p-0">
                         <div class="ratio ratio-4x3">
-                            {!! $kontak->google_maps_embed !!}
+                            <iframe src="{!! $kontak->google_maps_embed !!}" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
                         </div>
                     </div>
                 </div>
