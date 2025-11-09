@@ -349,19 +349,55 @@
                             <i class="bi bi-house-door me-1"></i>Beranda
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link {{ Request::routeIs('lowongan-kerja*') ? 'active' : '' }}" href="{{ route('lowongan-kerja') }}">
-                            <i class="bi bi-briefcase me-1"></i>Lowongan Kerja
+                    <!-- Group Career-related items into dropdown -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle {{ Request::routeIs('lowongan-kerja*', 'program-magang*') ? 'active' : '' }}" 
+                        href="#" id="karirDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-briefcase me-1"></i>Karir
                         </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {{ Request::routeIs('program-magang*') ? 'active' : '' }}" href="{{ route('program-magang') }}">
-                            <i class="bi bi-mortarboard me-1"></i>Program Magang
-                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="karirDropdown">
+                            <li>
+                                <a class="dropdown-item {{ Request::routeIs('lowongan-kerja*') ? 'active' : '' }}" 
+                                href="{{ route('lowongan-kerja') }}">
+                                    <i class="bi bi-briefcase"></i>Lowongan Kerja
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item {{ Request::routeIs('program-magang*') ? 'active' : '' }}" 
+                                href="{{ route('program-magang') }}">
+                                    <i class="bi bi-mortarboard"></i>Program Magang
+                                </a>
+                            </li>
+                        </ul>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link {{ Request::routeIs('berita*') ? 'active' : '' }}" href="{{ route('berita') }}">
                             <i class="bi bi-newspaper me-1"></i>Berita
+                        </a>
+                    </li>
+                    <!-- NEW: Rekap Dropdown -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle {{ Request::routeIs('rekap.*') ? 'active' : '' }}" href="#" id="rekapDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-file-earmark-spreadsheet me-1"></i>Rekap
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="rekapDropdown">
+                            <li>
+                                <a class="dropdown-item {{ Request::routeIs('rekap.magang') ? 'active' : '' }}" href="{{ route('rekap.magang') }}">
+                                    <i class="bi bi-journal-bookmark"></i>Borang Magang
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item {{ Request::routeIs('rekap.mbkm') ? 'active' : '' }}" href="{{ route('rekap.mbkm') }}">
+                                    <i class="bi bi-journal-code"></i>Borang MBKM
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    
+                    <!-- NEW: Tracer Study -->
+                    <li class="nav-item">
+                        <a class="nav-link {{ Request::routeIs('tracer-study') ? 'active' : '' }}" href="{{ route('tracer-study') }}">
+                            <i class="bi bi-graph-up me-1"></i>Tracer
                         </a>
                     </li>
                     <li class="nav-item">
