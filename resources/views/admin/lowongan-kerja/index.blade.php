@@ -298,33 +298,56 @@
 
     // Bulk action handler
     function bulkAction(action) {
-        const selectedIds = $('.row-checkbox:checked').map(function() {
-            return $(this).val();
-        }).get();
+        // Ambil semua checkbox yang dipilih
+        const selected = Array.from(document.querySelectorAll('.row-checkbox:checked')).map(cb => cb.value);
 
-        if (selectedIds.length === 0) {
-            alert('Pilih minimal satu item');
+        if (selected.length === 0) {
+            alert('Pilih setidaknya satu item.');
             return;
         }
 
-        if (action === 'delete') {
-            if (!confirm(`Apakah Anda yakin ingin menghapus ${selectedIds.length} lowongan kerja?`)) {
-                return;
-            }
-            $('#bulkDeleteIds').val(JSON.stringify(selectedIds));
-            $('#bulkDeleteForm').submit();
-        } else if (action === 'activate' || action === 'deactivate') {
-            const status = action === 'activate' ? 1 : 0;
-            const statusText = action === 'activate' ? 'mengaktifkan' : 'menonaktifkan';
-            
-            if (!confirm(`Apakah Anda yakin ingin ${statusText} ${selectedIds.length} lowongan kerja?`)) {
-                return;
-            }
-            
-            $('#bulkStatusIds').val(JSON.stringify(selectedIds));
-            $('#bulkStatus').val(status);
-            $('#bulkStatusForm').submit();
+        // Tentukan URL berdasarkan aksi
+        let url = '';
+        let method = 'POST';
+        let data = {};
+        const statusText = action === 'activate' ? 'mengaktifkan' : 'menonaktifkan';
+
+        if (action === 'activate' || action === 'deactivate') {
+            if (!confirm(`Yakin ingin ${statusText} item terpilih?`)) return;
+            url = '{{ route("admin.lowongan-kerja.bulk-status") }}';
+            data = {
+                ids: selected, // <--- penting! array, bukan string
+                status: action === 'activate' ? 1 : 0,
+                _token: '{{ csrf_token() }}'
+            };
+        } else if (action === 'delete') {
+            if (!confirm('Yakin ingin menghapus item terpilih?')) return;
+            url = '{{ route("admin.lowongan-kerja.bulk-delete") }}';
+            data = {
+                ids: selected, // tetap array
+                _token: '{{ csrf_token() }}'
+            };
         }
+
+        // Kirim via AJAX (fetch)
+        fetch(url, {
+            method: method,
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            },
+            body: JSON.stringify(data)
+        })
+        .then(res => {
+            if (!res.ok) throw new Error('Gagal melakukan aksi.');
+            return res.json().catch(() => ({})); // bisa redirect pakai JSON
+        })
+        .then(() => {
+            // Reload halaman setelah sukses
+            location.reload();
+        })
+        .catch(err => alert(err.message));
     }
 
     // Delete single item

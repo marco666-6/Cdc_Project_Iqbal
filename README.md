@@ -2,6 +2,11 @@
 
 JIKALAU INGIN MENGGUNAKAN PROYEK INI DARI DRIVE INI ATAU MENARIK DARI GITHUB DAN TANPA HARUS MANUAL IMPORT DATABASE
 
+- Pindah direktori ke folder projek
+```
+cd Cdc-Project-Iqbal
+```
+
 - Jalankan ini satu-persatu
 ```
 composer install
@@ -9,17 +14,12 @@ composer dump-autoload
 composer update
 ```
 
-- Lalu pindah direktori ke folder projek
-```
-cd Cdc-Project-Iqbal
-```
-
 - Membuat/Create database 'cdc_information_system' yang masih kosong di MySQL dengan cara
--- Nyalakan Apache dan MySQL di XAMPP
--- Buka http://localhost/phpmyadmin
--- Tekan 'New'
--- Ketik '*cdc_information_system*' di kolom 'Database Name'
--- Tekan 'Create'
+- Nyalakan Apache dan MySQL di XAMPP
+- Buka http://localhost/phpmyadmin
+- Tekan 'New'
+- Ketik '*cdc_information_system*' di kolom 'Database Name'
+- Tekan 'Create'
 
 - Duplicate file .env.example, lalu yang di duplicate tersebut ubah ekstensi menjadi '.env' saja (hapus '.example' nya)
 
@@ -57,6 +57,19 @@ php artisan route:clear
 ```
 php artisan serve
 ```
+
+## CARA RUN NORMAL SAJA
+
+1. PINDAH DIREKTORI
+```
+cd Cdc-Project-Iqbal
+```
+
+2. RUN
+```
+php artisan serve
+```
+
 
 ## About Laravel
 

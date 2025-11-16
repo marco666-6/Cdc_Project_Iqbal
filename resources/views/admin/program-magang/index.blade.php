@@ -294,33 +294,54 @@
 
     // Bulk action handler
     function bulkAction(action) {
-        const selectedIds = $('.row-checkbox:checked').map(function() {
-            return $(this).val();
-        }).get();
+        const selected = Array.from(document.querySelectorAll('.row-checkbox:checked')).map(cb => cb.value);
 
-        if (selectedIds.length === 0) {
-            alert('Pilih minimal satu item');
+        if (selected.length === 0) {
+            alert('Pilih minimal satu item.');
             return;
         }
 
+        let url = '';
+        let method = 'POST';
+        let data = {};
+        let confirmMessage = '';
+        let status = null;
+
         if (action === 'delete') {
-            if (!confirm(`Apakah Anda yakin ingin menghapus ${selectedIds.length} program magang?`)) {
-                return;
-            }
-            $('#bulkDeleteIds').val(JSON.stringify(selectedIds));
-            $('#bulkDeleteForm').submit();
+            confirmMessage = `Apakah Anda yakin ingin menghapus ${selected.length} program magang?`;
+            url = '{{ route("admin.program-magang.bulk-delete") }}';
+            data = {
+                ids: selected,
+                _token: '{{ csrf_token() }}'
+            };
         } else if (action === 'activate' || action === 'deactivate') {
-            const status = action === 'activate' ? 1 : 0;
-            const statusText = action === 'activate' ? 'mengaktifkan' : 'menonaktifkan';
-            
-            if (!confirm(`Apakah Anda yakin ingin ${statusText} ${selectedIds.length} program magang?`)) {
-                return;
-            }
-            
-            $('#bulkStatusIds').val(JSON.stringify(selectedIds));
-            $('#bulkStatus').val(status);
-            $('#bulkStatusForm').submit();
+            status = action === 'activate' ? 1 : 0;
+            confirmMessage = `Apakah Anda yakin ingin ${action === 'activate' ? 'mengaktifkan' : 'menonaktifkan'} ${selected.length} program magang?`;
+            url = '{{ route("admin.program-magang.bulk-status") }}';
+            data = {
+                ids: selected,
+                status: status,
+                _token: '{{ csrf_token() }}'
+            };
         }
+
+        if (!confirm(confirmMessage)) return;
+
+        fetch(url, {
+            method: method,
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            },
+            body: JSON.stringify(data)
+        })
+        .then(res => {
+            if (!res.ok) throw new Error('Gagal melakukan aksi.');
+            return res.json().catch(() => ({}));
+        })
+        .then(() => location.reload())
+        .catch(err => alert(err.message));
     }
 
     // Delete single item
